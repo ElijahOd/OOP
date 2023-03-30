@@ -1,0 +1,177 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp
+{
+    class Program
+    {
+        abstract class Games {
+            protected string title;
+            protected string playerCount;
+
+            static protected int gameCount = 0;
+            static public void MyGame() {
+                Console.WriteLine($"There are {gameCount} games in total");
+            }
+            
+            public static void PrintGames(List<Games> gamesList) {
+                int num = 0;
+                foreach (Games game in gamesList) {
+                    num++;
+                    Console.WriteLine($"{num}. \"{game.title}\" - players: {game.playerCount}");
+                }
+            }
+        }
+
+        class Tabel : Games {
+            protected bool specialSpace;
+            protected int difficultyLevel;
+        }
+
+        class Sport : Games {
+            protected bool score;
+            protected bool ballPresence;
+        }
+
+        class Video : Games {
+            private string platform;
+            private string genre;
+            private bool crossplatform;
+            private bool online;
+
+            public Video (string title, string playerCount, string platform, string genre, bool crossplatform, bool online)
+            {
+                this.title = title;
+                this.playerCount = playerCount;
+                this.platform = platform;
+                this.genre = genre;
+                this.crossplatform = crossplatform;
+                this.online = online;
+                gameCount++;
+            }
+        }
+
+        class Board : Tabel {
+            private int shapeCount;
+            private bool uniformShapes;
+
+            public Board (string title, string playerCount, bool specialSpace, int difficultyLevel, int shapeCount, bool uniformShapes)
+            {
+                this.title = title;
+                this.playerCount = playerCount;
+                this.specialSpace = specialSpace;
+                this.difficultyLevel = difficultyLevel;
+                this.shapeCount = shapeCount;
+                this.uniformShapes = uniformShapes;
+                gameCount++;
+            }
+        }
+
+        class Card : Tabel {
+            private bool deck;
+            private bool rolePlayers;
+
+            public Card (string title, string playerCount, bool specialSpace, int difficultyLevel, bool deck, bool rolePlayers)
+            {
+                this.title = title;
+                this.playerCount = playerCount;
+                this.specialSpace = specialSpace;
+                this.difficultyLevel = difficultyLevel;
+                this.deck = deck;
+                this.rolePlayers = rolePlayers;
+                gameCount++;
+            }
+        }
+
+        class Strategy : Tabel {
+            private bool cooperative;
+            private bool economic;
+
+            public Strategy (string title, string playerCount, bool specialSpace, int difficultyLevel, bool cooperative, bool economic)
+            {
+                this.title = title;
+                this.playerCount = playerCount;
+                this.specialSpace = specialSpace;
+                this.difficultyLevel = difficultyLevel;
+                this.cooperative = cooperative;
+                this.economic = economic;
+                gameCount++;
+            }
+        }
+
+        class Team : Sport {
+            private string teamCount;
+            private bool timeLimited;
+
+            public Team (string title, string playerCount, bool score, bool ballPresence, string teamCount, bool timeLimited)
+            {
+                this.title = title;
+                this.playerCount = playerCount;
+                this.score = score;
+                this.ballPresence = ballPresence;
+                this.teamCount = teamCount;
+                this.timeLimited = timeLimited;
+                gameCount++;
+            }
+        }
+
+        class Individual : Sport {
+            private string activityType;
+            private bool specialEquipment;
+
+            public Individual (string title, string playerCount, bool score, bool ballPresence, string activityType, bool specialEquipment)
+            {
+                this.title = title;
+                this.playerCount = playerCount;
+                this.score = score;
+                this.ballPresence = ballPresence;
+                this.activityType = activityType;
+                this.specialEquipment = specialEquipment;
+                gameCount++;
+            }
+        }
+
+        class Combat : Sport {
+            private bool mixedCombatArts;
+            private bool withStruggle;
+
+            public Combat (string title, string playerCount, bool score, bool ballPresence, bool mixedCombatArts, bool withStruggle)
+            {
+                this.title = title;
+                this.playerCount = playerCount;
+                this.score = score;
+                this.ballPresence = ballPresence;
+                this.mixedCombatArts = mixedCombatArts;
+                this.withStruggle = withStruggle;
+                gameCount++;
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Board chess = new Board ("Chess", "2", true, 7, 32, false);
+            Board checkers = new Board ("Checkers", "2", true, 4, 24, true);
+            Card dixit = new Card ("Dixit", "3 - 6", false, 2, true, false);
+            Card alias = new Card ("Alias", "4 - 20", false, 2, true, false);
+            Strategy monopoly = new Strategy ("Monopoly", "2 - 6", true, 5, false, true);
+            Strategy carcassonne = new Strategy ("Carcassonne", "2 - 5", true, 5, false, true);
+            Team football = new Team ("Football", "11", true, true, "2 and more", true);
+            Team funRun = new Team ("Fun Run", "2 and more", true, false, "2 and more", false);
+            Individual tableTennis = new Individual ("Table Tennis", "2", true, true, "game", true);
+            Individual bicycle = new Individual ("Bicycle race", "2 and more", false, false, "competition", true);
+            Combat boxing = new Combat ("Boxing", "2", true, false, false, false);
+            Combat mma = new Combat ("MMA", "2", true, false, true, true);
+            Video fifa = new Video ("FIFA", "2 - 4", "PC, PlayStation, Xbox, Nintendo Switch, iOS, Android", "sport", false, true);
+            Video godOfWar = new Video ("God of War", "1", "PlayStation", "action", false, false);
+        
+            Games.MyGame();
+            
+            List<Games> gamesList = new List<Games> {chess, checkers, dixit, alias, monopoly, carcassonne, football, funRun, tableTennis, bicycle, boxing, mma, fifa, godOfWar};
+            Games.PrintGames(gamesList);
+
+        }
+    }
+}
